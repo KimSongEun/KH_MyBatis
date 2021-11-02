@@ -17,4 +17,8 @@ public class BoardService {
 	public ArrayList<Board> selectList(int currentPage, int limit) {
 		return new BoardDao().selectList(currentPage, limit);
 	}
+	
+	public ArrayList<Board> selectListRownum(int currentPage, int limit) {
+		return new BoardDao().selectListRownum(currentPage, limit);
+	}
 }
