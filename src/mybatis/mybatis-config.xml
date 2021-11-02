@@ -7,7 +7,7 @@
 	</settings>
 	<typeAliases> <!-- Class 별칭을 선언하여 모든 경로를 적어주지 않아도 된다. -->
 		<typeAlias type="member.model.vo.Member" alias="Member" />
-		<!-- <typeAlias type="board.model.vo.Board" alias="Board" /> -->
+		<typeAlias type="board.model.vo.Board" alias="Board" />
 		
 	</typeAliases>
 	<environments default="development">
@@ -26,6 +26,6 @@
 	<mappers>
 		<!-- SQL을 선언해 둔 XML이나 인터페이스 형태의 Mapper 위치를 지정한다 -->
 		<mapper resource="member/model/mapper/member-mapper.xml" />
-		<!-- <mapper resource="board/model/mapper/board-mapper.xml" /> -->
+		<mapper resource="board/model/mapper/board-mapper.xml" /> 
 	</mappers>
 </configuration> 

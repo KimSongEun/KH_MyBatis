@@ -35,7 +35,9 @@
 		resultMap="resultMember">
 		SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
-
+	<select id="listMember" resultType="Member">
+		SELECT * FROM MEMBER ORDER BY NAME
+	</select>
 	<insert id="insertMember" parameterType="Member"
 		statementType="PREPARED">
 		INSERT INTO MEMBER VALUES(#{id}, #{passwd}, #{name}, #{email}, #{gender}, #{age}, #{phone}, #{address}, DEFAULT)

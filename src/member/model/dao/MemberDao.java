@@ -2,8 +2,10 @@ package member.model.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -45,6 +47,23 @@ public class MemberDao {
 		return member;
 	}
 
+	public List<Member> selectMembers(int offset, int pageSize) {
+		List<Member> members = null;
+		SqlSession session = null;
+		try {
+			session = getSqlSessionFactory().openSession(false); // DB 연결 코드
+			RowBounds rbounds = new RowBounds(offset, pageSize);
+			members = session.selectList("Member.listMember", null, rbounds); // JSP -> Servlet -> Service를 거쳐서 실려온 것 중 하나를 member에 실어줌.
+			System.out.println(session);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return members;
+	}
+
+	
 	public Member checkIdDup(String userid) {
 		Member member = null;
 		SqlSession session = null;

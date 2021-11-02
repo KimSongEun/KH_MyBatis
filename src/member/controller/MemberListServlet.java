@@ -1,6 +1,8 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +13,16 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberInsert
+ * Servlet implementation class MemberListServlet
  */
-@WebServlet("/MemberInsert")
-public class MemberInsert extends HttpServlet {
+@WebServlet("/memberlist")
+public class MemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInsert() {
+    public MemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +31,10 @@ public class MemberInsert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member inputData = new Member();
-		inputData.setId("se");
-		inputData.setPasswd("1234");
-		inputData.setName("송은");
-		inputData.setEmail("song@song.com");
-		inputData.setGender("F");
-		inputData.setAge(25);
-		inputData.setPhone("01012341234");
-		inputData.setAddress("경기");
-		int result = new MemberService().insertMember(inputData);
-		System.out.println("insert결과 :" + result);
+		int startRnum = 2;
+		int endRnum = 4;
+		List<Member> volist = new MemberService().selectMembers(startRnum, endRnum);
+		System.out.println("memberlist 결과 :" + volist);
 	}
 
 	/**
