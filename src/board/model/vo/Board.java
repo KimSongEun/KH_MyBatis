@@ -2,6 +2,8 @@ package board.model.vo;
 
 import java.sql.Date;
 
+import member.model.vo.Member;
+
 public class Board {
 	public static final long serialVersionUID = 20001L;
 	private int boardNum;
@@ -17,12 +19,17 @@ public class Board {
 	private int boardReplySeq;
 	private int  boardReadCount;
 	
+	// association 사용[[
+	private Member writer;
+	//]]
 	public Board() {
 	}
 
+
+
 	public Board(int boardNum, String boardTitle, String boardWriter, String boardContent, String boardOriginalFileName,
 			String boardRenameFileName, Date boardDate, int boardLevel, int boardRef, int boardReplyRef,
-			int boardReplySeq, int boardReadCount) {
+			int boardReplySeq, int boardReadCount, Member writer) {
 		super();
 		this.boardNum = boardNum;
 		this.boardTitle = boardTitle;
@@ -36,6 +43,7 @@ public class Board {
 		this.boardReplyRef = boardReplyRef;
 		this.boardReplySeq = boardReplySeq;
 		this.boardReadCount = boardReadCount;
+		this.writer = writer;
 	}
 
 	public int getBoardNum() {
@@ -134,14 +142,25 @@ public class Board {
 		this.boardReadCount = boardReadCount;
 	}
 
+	
+	public Member getWriter() {
+		return writer;
+	}
+
+	public void setWriter(Member writer) {
+		this.writer = writer;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNum=" + boardNum + ", boardTitle=" + boardTitle + ", boardWriter=" + boardWriter
 				+ ", boardContent=" + boardContent + ", boardOriginalFileName=" + boardOriginalFileName
 				+ ", boardRenameFileName=" + boardRenameFileName + ", boardDate=" + boardDate + ", boardLevel="
 				+ boardLevel + ", boardRef=" + boardRef + ", boardReplyRef=" + boardReplyRef + ", boardReplySeq="
-				+ boardReplySeq + ", boardReadCount=" + boardReadCount + "]";
+				+ boardReplySeq + ", boardReadCount=" + boardReadCount + ", writer=" + writer + "]";
 	}
+
+
 	
 	
 }

@@ -1,6 +1,9 @@
 package member.model.vo;
 
 import java.sql.Date;
+import java.util.List;
+
+import board.model.vo.Board;
 
 public class Member implements java.io.Serializable {
 	private static final long serialVersionUID = 1111L;
@@ -13,12 +16,14 @@ public class Member implements java.io.Serializable {
 	private String phone;
 	private String address;
 	private Date enrollDate;
+	private List<Board> myBoardlist;
 
 	public Member() {
 	}
 
+
 	public Member(String id, String passwd, String name, String email, String gender, int age, String phone,
-			String address) {
+			String address, Date enrollDate, List<Board> myBoardlist) {
 		super();
 		this.id = id;
 		this.passwd = passwd;
@@ -28,7 +33,10 @@ public class Member implements java.io.Serializable {
 		this.age = age;
 		this.phone = phone;
 		this.address = address;
+		this.enrollDate = enrollDate;
+		this.myBoardlist = myBoardlist;
 	}
+
 
 	public Member(String id, String passwd, String name, String email, String gender, int age, String phone,
 			String address, Date enroll_date) {
@@ -116,9 +124,22 @@ public class Member implements java.io.Serializable {
 		this.enrollDate = enrollDate;
 	}
 
+
+	public List<Board> getMyBoardlist() {
+		return myBoardlist;
+	}
+
+
+	public void setMyBoardlist(List<Board> myBoardlist) {
+		this.myBoardlist = myBoardlist;
+	}
+
+
 	@Override
 	public String toString() {
-		return this.id + ", " + this.passwd + ", " + this.name + ", " + this.gender + ", " + this.age + ", "
-				+ this.email + ", " + this.phone + ", " + this.address + ", " + this.enrollDate;
+		return "Member [id=" + id + ", passwd=" + passwd + ", name=" + name + ", email=" + email + ", gender=" + gender
+				+ ", age=" + age + ", phone=" + phone + ", address=" + address + ", enrollDate=" + enrollDate
+				+ ", myBoardlist=" + myBoardlist + "]";
 	}
+	
 }

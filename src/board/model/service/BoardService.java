@@ -21,4 +21,7 @@ public class BoardService {
 	public ArrayList<Board> selectListRownum(int currentPage, int limit) {
 		return new BoardDao().selectListRownum(currentPage, limit);
 	}
+	public ArrayList<Board> selectListJoinMember(int currentPage, int limit) {
+		return new BoardDao().selectListJoinMember(currentPage, limit);
+	}
 }

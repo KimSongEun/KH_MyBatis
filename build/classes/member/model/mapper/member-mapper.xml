@@ -26,6 +26,33 @@
 		<result property="enrollDate" column="ENROLL_DATE" />
 	</resultMap>
 
+	<resultMap id="resultMember2" type="Member">
+		<!-- property 는 필드명, column 은 DB 컬럼 명을 기술한다 -->
+		<id property="id" column="ID" />
+		<result property="passwd" column="PASSWD" />
+		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="gender" column="GENDER" />
+		<result property="age" column="AGE" />
+		<result property="phone" column="PHONE" />
+		<result property="address" column="ADDRESS" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<collection property="myBoardlist" ofType="Board">
+			<id property="boardNum" column="BOARD_NUM" />
+			<result property="boardTitle" column="BOARD_TITLE" />
+			<result property="boardWriter" column="BOARD_WRITER" />
+			<result property="boardContent" column="BOARD_CONTENT" />
+			<result property="boardOriginalFileName" column="BOARD_ORIGINAL_FILENAME" />
+			<result property="boardRenameFileName" column="BOARD_RENAME_FILENAME" />
+			<result property="boardDate" column="BOARD_DATE" />
+			<result property="boardLevel" column="BOARD_LEVEL" />
+			<result property="boardRef" column="BOARD_REF" />
+			<result property="boardReplyRef" column="BOARD_REPLY_REF" />
+			<result property="boardReplySeq" column="BOARD_REPLY_SEQ" />
+			<result property="boardReadCount" column="BOARD_READCOUNT" />
+		</collection>
+	</resultMap>
+
 	<select id="loginCheck" parameterType="Member" resultMap="r2">
 		SELECT
 		* FROM MEMBER WHERE ID = #{id} AND PASSWD = #{passwd}
@@ -36,16 +63,19 @@
 		SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
 	<select id="listMember" resultType="Member">
-		SELECT * FROM MEMBER ORDER BY NAME
+		SELECT * FROM MEMBER ORDER BY
+		NAME
 	</select>
 	<insert id="insertMember" parameterType="Member"
 		statementType="PREPARED">
-		INSERT INTO MEMBER VALUES(#{id}, #{passwd}, #{name}, #{email}, #{gender}, #{age}, #{phone}, #{address}, DEFAULT)
+		INSERT INTO MEMBER VALUES(#{id}, #{passwd}, #{name},
+		#{email}, #{gender}, #{age}, #{phone}, #{address}, DEFAULT)
 	</insert>
 
 	<update id="updateMember" parameterType="Member"
 		statementType="PREPARED">
-		UPDATE MEMBER SET PASSWD = #{passwd}, EMAIL = #{email}, AGE = #{age}, PHONE = #{phone}, ADDRESS = #{address} WHERE ID = #{id}
+		UPDATE MEMBER SET PASSWD = #{passwd}, EMAIL = #{email},
+		AGE = #{age}, PHONE = #{phone}, ADDRESS = #{address} WHERE ID = #{id}
 	</update>
 
 	<delete id="deleteMember" parameterType="string"

@@ -31,13 +31,21 @@ public class BoardListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 
 		BoardService bservice = new BoardService();
-
+		
+		// 전체 게시글 개수와 해당 페이지별 목록 리턴 받음
 		int listCount = bservice.getListCount();
+		
+		// rowbounds 사용
 //		ArrayList<Board> list = bservice.selectList(currentPage, limit);
 //		System.out.println("board list 결과 : " + list);
 		
-		ArrayList<Board> list = bservice.selectListRownum(currentPage, limit);
-		System.out.println("board list rownum 결과 : " + list);
+		// rownum 사용
+//		ArrayList<Board> list = bservice.selectListRownum(currentPage, limit);
+//		System.out.println("board list rownum 결과 : " + list);
+		
+		// rowbounds 사용 + join member 한 결과
+		ArrayList <Board> list = bservice.selectListJoinMember(currentPage, limit);
+		System.out.println("board list join member 결과 : " + list);
 		
 		int maxPage = (int) ((double) listCount / limit + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;

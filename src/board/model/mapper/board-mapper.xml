@@ -20,6 +20,47 @@
 		<result property="boardReadCount" column="BOARD_READCOUNT" />
 	</resultMap>
 	
+		<resultMap id="resultBoard2" type="Board">
+		<!-- prop 는 필드명, column 은 DB 컬럼 명 -->
+		<id property="boardNum" column="BOARD_NUM" />
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="boardWriter" column="BOARD_WRITER" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardOriginalFileName"
+			column="BOARD_ORIGINAL_FILENAME" />
+		<result property="boardRenameFileName"
+			column="BOARD_RENAME_FILENAME" />
+		<result property="boardDate" column="BOARD_DATE" />
+		<result property="boardLevel" column="BOARD_LEVEL" />
+		<result property="boardRef" column="BOARD_REF" />
+		<result property="boardReplyRef" column="BOARD_REPLY_REF" />
+		<result property="boardReplySeq" column="BOARD_REPLY_SEQ" />
+		<result property="boardReadCount" column="BOARD_READCOUNT" />
+		<association property="writer" javaType="Member">
+			<id property="id" column="ID" />
+			<result property="passwd" column="PASSWD" />
+			<result property="name" column="NAME" />
+			<result property="email" column="EMAIL" />
+			<result property="gender" column="GENDER" />
+			<result property="age" column="AGE" />
+			<result property="phone" column="PHONE" />
+			<result property="address" column="ADDRESS" />
+			<result property="enrollDate" column="ENROLL_DATE" />
+		</association>
+	</resultMap>
+	
+	<select id="selectAllJoinMember" resultMap="resultBoard2">
+		<![CDATA[ 
+			SELECT * 
+			FROM (SELECT ROWNUM RNUM, BOARD_NUM, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_ORIGINAL_FILENAME, 
+			BOARD_RENAME_FILENAME, BOARD_DATE, BOARD_LEVEL, BOARD_REF, BOARD_REPLY_REF, 
+			BOARD_REPLY_SEQ, BOARD_READCOUNT, ID, NAME, EMAIL, GENDER, AGE, ADDRESS, ENROLL_DATE FROM (
+			SELECT * FROM BOARD b
+			JOIN MEMBER m ON b.BOARD_WRITER=m.ID
+			ORDER BY BOARD_REF DESC, BOARD_REPLY_REF DESC, BOARD_LEVEL, BOARD_REPLY_SEQ))
+		]]> 
+	</select>
+	
 	<!-- 1. ROWNUM을 사용하는 경우 -->
 	<!-- <select id="selectAll" parameterType="BoardPage" resultType="arraylist" 
 		resultMap="resultBoard"> 쿼리 내부에 부등호를 사용할 경우, 태그의 구분자(‘<’, ’>’, '&')로 인식하기 때문에 

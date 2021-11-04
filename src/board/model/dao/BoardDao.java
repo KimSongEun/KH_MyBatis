@@ -88,5 +88,25 @@ public class BoardDao {
 		}
 		return list;
 	}
+	
+	public ArrayList<Board> selectListJoinMember(int currentPage, int limit) {
+		// 페이지 단위로 게시글 목록 조회
+		ArrayList<Board> list = null;
+		// # 2. Rowbounds 를 사용하는 경우
+		// 대상의 시작 행과 제한 개수를 인자로 Rowbounds 객체를 생성하여 전달한다.
+		SqlSession session = null;
+		int startRow = (currentPage - 1) * limit;
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			RowBounds row = new RowBounds(startRow, limit);
+			// Parameter Object가 없으므로, 가운데 인자를 null로 하여 전달한다.
+			list = new ArrayList<Board>(session.selectList("Board.selectAllJoinMember", null, row));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
 
 }
